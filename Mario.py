@@ -6,6 +6,10 @@ from Sound import Sound
 
 class Mario(pygame.sprite.Sprite):
     
+    lives = 3
+    coins = 0
+    score = 0
+    
     right_index = 0
     left_index = 0
     
@@ -41,6 +45,7 @@ class Mario(pygame.sprite.Sprite):
     #head_shot = Sound('head_shot.ogg')
     
     def __init__(self):
+        self._location = (300, 380)
         self._type = 'plumber'
         self._sindex = 0
         self._gravity = 0
@@ -50,13 +55,14 @@ class Mario(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = self.stand_right[self._sindex]
         self.rect = self.image.get_rect()
-        self.rect.center = (300, 380)
+        self.rect.center = self._location
         
     def switchSize(self, i: int):
         old_centre = self.rect.center
         self._sindex = i
         self.image = self.stand_right[self._sindex]
-        self.rect.y -= 20
+        if self.rect.y % 2 > 0:
+            self.rect.y -= 20
         self.rect = self.image.get_rect()
         self.rect.center = (old_centre[0], old_centre[1] - 15)
         
@@ -116,6 +122,6 @@ class Mario(pygame.sprite.Sprite):
     def die(self):
         self._type = 'dead_mario'
         self.falling()
-        if self.rect.top > 450:
-            pygame.quit()
-            sys.exit()
+        # if self.rect.top > 450:
+        #     pygame.quit()
+        #     sys.exit()

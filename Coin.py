@@ -12,7 +12,9 @@ class Coin(pygame.sprite.Sprite):
     
     coins = [coin_1, coin_2, coin_3, coin_4]
     
-    def __init__(self, location: list):
+    def __init__(self, location: list, amount):
+        self._location = (location[0] + 1, location[1])
+        self._amount = amount
         self._type = 'coin'
         self._limit = 40
         self._index = 0
@@ -25,6 +27,8 @@ class Coin(pygame.sprite.Sprite):
         
         
     def getCoin(self):
+        if self._gravity == 0:
+            self._amount -= 1
         if self._gravity > self._limit/2:
             self.rect.y -= 5
             self.image = self.coins[(self._index//2) % len(self.coins)]

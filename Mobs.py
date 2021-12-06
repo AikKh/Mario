@@ -12,6 +12,7 @@ class Mush(pygame.sprite.Sprite):
         self.mush_die = pygame.image.load(os.path.join(self.enemies_imgs, 'mush_die.png'))
         self.mush_steps = [self.mush_1, self.mush_2]
         
+        self._location = location
         self._type = 'enemy'
         self._direction = 'left'
         self._last_dir = None
@@ -57,6 +58,7 @@ class EdibleMush(Mush):
     
     def __init__(self, location: list):
         Mush.__init__(self, location)
+        self._location = location
         self.mush_1 = pygame.image.load(os.path.join(self.enemies_imgs, 'good_mush.png'))
         self.image = self.mush_1
         self.mush_steps = [self.mush_1, self.mush_1]
